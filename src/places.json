@@ -1,0 +1,51 @@
+ [
+    {
+      "name": "West Highland Way",
+      "title": "",
+      "distance" : "151km",
+      "country": "Scotland",
+      "position": {"lat": "56.8169548", "lng": "-6.2238394" }
+    },
+    {
+      "name": "Via Francigena",
+      "title": "",
+      "distance" : "",
+      "country": "Italy",
+      "position": {"lat": "41.8514669", "lng": "11.9544347"}
+    },
+    {
+      "name": "Camino de Santiago",
+      "title": "",
+      "distance" : "",
+      "country": "Spain",
+      "position": {"lat": "42.8801996", "lng": "-8.5797891"}
+    },
+    {
+      "name": "4 Day March",
+      "title": "",
+      "distance" : "",
+      "country": "Netherlands",
+      "position": {"lat": "51.8429473", "lng": "5.7631166"}
+    },
+    {
+      "name": "Kungsleden",
+      "title": "",
+      "distance" : "",
+      "country": "Sweden",
+      "position": {"lat": "65.8045759", "lng": "14.9677404"}
+    },
+    {
+      "name": "Slovenian Mountain Trail",
+      "title": "",
+      "distance" : "",
+      "country": "Slovenia",
+      "position": {"lat": "45.5768163", "lng": "13.7018976"}
+    },
+    {
+      "name": "Westweg",
+      "title": "",
+      "distance" : "285km",
+      "country": "Germany",
+      "position": {"lat": "47.5546912", "lng": "7.5244196"}
+    }
+  ]
