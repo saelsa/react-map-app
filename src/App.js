@@ -3,6 +3,7 @@ import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
 
 import * as data from "./places.json";
 import "./App.css";
+import { Filter } from './Filter';
 
 const unsplashKey = "4281660249cb5a66f365bf7611e9760a224d689a23bcc0efad2cee76d8149bc4";
 
@@ -12,40 +13,30 @@ export class App extends Component {
     activeMarker: {},
     selectedPlace: {},
     places: [],
-    imgs: [],
-    imgtest: ''
   };
 
   componentDidMount = () => {
    
+    //code for testing
+    // let places = data.map(place => {
+    //   place.img = "https://source.unsplash.com/user/erondu/1600x900";
+    //   return place;
+    // })
+
+    //code for production
     let places = data.map(place => {
-      place.img = "https://source.unsplash.com/user/erondu/1600x900";
-      return place;
-    })
+      fetch(`https://api.unsplash.com/photos/random/?query=${place.country},forest,hiking&orientation=landscape&client_id=${unsplashKey}`)
+        .then(res => res.json())
+        .then(imgs => {
+          place.img = imgs.urls.small;
+         })
+        .catch(err => {
+          console.log('Error happened during fetching!', err);
+        });
+        return place;
+      });
 
-    this.setState({places});
-
-    // data.map(place => {
-    //   fetch(`https://api.unsplash.com/photos/random/?query=${place.country},forest,hiking&orientation=landscape&client_id=${unsplashKey}`)
-    //     .then(res => res.json())
-    //     .then(imgs => {
-    //       place.img = imgs.urls.small;
-    //      })
-    //     .catch(err => {
-    //       console.log('Error happened during fetching!', err);
-    //     });
-    //   });
-
-
-
-    //  fetch('https://api.unsplash.com/photos/random/?query=forest,spain,hiking&orientation=landscape&client_id=' + '4281660249cb5a66f365bf7611e9760a224d689a23bcc0efad2cee76d8149bc4' )
-    //   .then(res => res.json())
-    //   .then(imgs => {
-    //     this.setState({ imgs: imgs.urls.small , places : data });
-    //      })
-    //   .catch(err => {
-    //     console.log('Error happened during fetching!', err);
-    //   });
+      this.setState({places});
 
   };
 
@@ -73,8 +64,11 @@ export class App extends Component {
 
   render() {
     return (
-      <Map
-        style={{ height: "100%", width: "100%" }}
+      <div>
+        <div className="map-container">
+        <Map
+        className="Map"
+        style={{ height: "100%", width: "75%" }}
         initialCenter={{
           lat: 54.5259614,
           lng: 15.2551187
@@ -108,6 +102,16 @@ export class App extends Component {
           </div>
         </InfoWindow>
       </Map>
+
+        </div>
+    
+      <Filter
+        style={{ height: "100vh", width: "25vw" }}
+        places={this.state.places}
+      
+      >
+      </Filter>
+      </div>
     );
   }
 }

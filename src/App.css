@@ -2,3 +2,20 @@
     width: 100%;
     height: 100%;
 }
+
+.map-container {
+    z-index: -1;
+    margin: 0;
+    height: 100%;
+    width: 75%;
+}
+
+.filter {
+    z-index: 999;
+    float: right;
+    position: fixed;
+    top: 0;
+    right: 0;
+    min-width: 280px;
+    width: 25%;
+}
