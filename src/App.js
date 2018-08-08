@@ -61,7 +61,7 @@ export class App extends Component {
   //     new selectedMarker.props.google.maps.event.trigger(selectedMarker.marker, 'click' );
   // }
 
-  onListClicked = place => {
+  onListClick = place => {
     for (const createdMarker of this.state.marker) {
       if (createdMarker.props.name === place.name) {
         new createdMarker.props.google.maps.event.trigger(
@@ -111,7 +111,6 @@ export class App extends Component {
   }
 
   render() {
-    console.log(this.state.activeMarker);
     return (
       <div className="App">
         <div className="map-container">
@@ -160,7 +159,7 @@ export class App extends Component {
         <Sidebar
           style={{ height: "100vh", width: "25vw" }}
           places={this.state.places}
-          onClick={this.onListClicked}
+          onListClick={this.onListClick}
         />
       </div>
     );

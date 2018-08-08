@@ -10,7 +10,7 @@
     width: 75%;
 }
 
-.filter {
+.list-places {
     z-index: 999;
     float: right;
     position: fixed;
