@@ -1,4 +1,5 @@
 import React, { Component} from 'react';
+import {Marker } from "google-maps-react";
 
 export class Filter extends Component {
 
@@ -7,9 +8,16 @@ export class Filter extends Component {
           <div className="filter">
             <ul className="list-places">
                 {this.props.places.map(place => 
-                <li key={place.name}>
-                    {place.name}
-                </li>)}
+                
+  
+                <li key={place.name} onClick={() => 
+                    this.props.onClick(place)}>
+                    <button>{place.name}</button>
+                </li>
+                
+                )
+                }
+                
             </ul>
           </div>
 

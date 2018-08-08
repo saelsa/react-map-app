@@ -3,7 +3,7 @@ import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
 
 import * as data from "./places.json";
 import "./App.css";
-import { Filter } from './Filter';
+import { Filter } from './components/Filter';
 
 const unsplashKey = "4281660249cb5a66f365bf7611e9760a224d689a23bcc0efad2cee76d8149bc4";
 
@@ -12,18 +12,13 @@ export class App extends Component {
     showingInfoWindow: false,
     activeMarker: {},
     selectedPlace: {},
+
     places: [],
+    marker: [],
   };
 
   componentDidMount = () => {
    
-    //code for testing
-    // let places = data.map(place => {
-    //   place.img = "https://source.unsplash.com/user/erondu/1600x900";
-    //   return place;
-    // })
-
-    //code for production
     let places = data.map(place => {
       fetch(`https://api.unsplash.com/photos/random/?query=${place.country},forest,hiking&orientation=landscape&client_id=${unsplashKey}`)
         .then(res => res.json())
@@ -35,17 +30,41 @@ export class App extends Component {
         });
         return place;
       });
-
       this.setState({places});
 
   };
 
-  onMarkerClick = (props, marker, e) =>
+  onMarkerClick = (props, marker, e) => 
     this.setState({
       selectedPlace: props,
       activeMarker: marker,
       showingInfoWindow: true
     });
+
+
+    onMarkerCreated = (marker) => {
+      if (marker !== null) {
+         this.setState(prevState => ({
+          marker: [...prevState.marker, marker]
+        }))
+      }
+  }
+
+  // onListClicked = (place) => {
+  //   const selectedMarker = this.state.marker.filter(marker =>
+  //     marker.props.name === place.name);
+  //     // console.log(selectedMarker);
+  //     new selectedMarker.props.google.maps.event.trigger(selectedMarker.marker, 'click' );
+  // }
+
+  onListClicked = (place) => {
+    for (const createdMarker of this.state.marker) {
+      if (createdMarker.props.name === place.name) {
+        new createdMarker.props.google.maps.event.trigger( createdMarker.marker, 'click' );
+      }
+    }
+  }
+
 
   onMapClicked = props => {
     if (this.state.showingInfoWindow) {
@@ -63,6 +82,7 @@ export class App extends Component {
     });
 
   render() {
+    console.log(this.activeMarker);
     return (
       <div>
         <div className="map-container">
@@ -80,12 +100,16 @@ export class App extends Component {
         {this.state.places.map(place => (
           <Marker
             key={place.name}
+            id={place.name}
             title={place.name}
             name={place.name}
             position={place.position}
             country={place.country}
             img={place.img}
             onClick={this.onMarkerClick}
+            onMarkerCreated={this.onMarkerCreated}
+            ref={this.onMarkerCreated}
+            
           />
         ))}
 
@@ -108,6 +132,7 @@ export class App extends Component {
       <Filter
         style={{ height: "100vh", width: "25vw" }}
         places={this.state.places}
+        onClick={this.onListClicked}
       
       >
       </Filter>
