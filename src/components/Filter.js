@@ -4,7 +4,7 @@ import { Dropdown, DropdownItem } from "muicss/react";
 export class Filter extends Component {
   render() {
     let uniqueCountries = [
-      ...new Set(this.props.places.map(place => place.country))
+      ...new Set(this.props.places.map(place => place.country).sort())
     ];
 
      return (
