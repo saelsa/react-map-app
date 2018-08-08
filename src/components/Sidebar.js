@@ -1,7 +1,7 @@
 import React, { Component} from 'react';
 import {Marker } from "google-maps-react";
 
-export class Filter extends Component {
+export class Sidebar extends Component {
 
     render () {
       return (
@@ -28,4 +28,4 @@ export class Filter extends Component {
     
 }
 
-export default Filter;
+export default Sidebar;
