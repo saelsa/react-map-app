@@ -14,6 +14,7 @@ export class App extends Component {
 
     places: [],
     marker: [],
+
   };
 
   componentDidMount = () => {
@@ -33,14 +34,16 @@ export class App extends Component {
 
   };
 
-  onMarkerClick = (props, marker, e) => 
+  onMarkerClick = (props, marker, e) => {
     this.setState({
       selectedPlace: props,
       activeMarker: marker,
       showingInfoWindow: true
     });
 
-
+    this.toggleBounce(marker);
+  }
+  
     onMarkerCreated = (marker) => {
       if (marker !== null) {
          this.setState(prevState => ({
@@ -61,10 +64,23 @@ export class App extends Component {
       if (createdMarker.props.name === place.name) {
         new createdMarker.props.google.maps.event.trigger( createdMarker.marker, 'click' );
       }
-
     }
   }
 
+  //first all marker animations are reset to null, then the animation of the 
+  //selected marker is set
+  toggleBounce = (marker) => {
+      for (const otherMarker of this.state.marker) {
+        if (otherMarker.marker.getAnimation() !== null) {
+          otherMarker.marker.setAnimation(null);
+        }
+      }
+    if (marker.getAnimation() !== null) {
+      marker.setAnimation(null);
+    } else {
+      marker.setAnimation(this.props.google.maps.Animation.BOUNCE);
+    }
+  }
 
   onMapClicked = props => {
     if (this.state.showingInfoWindow) {
@@ -82,7 +98,7 @@ export class App extends Component {
     });
 
   render() {
-    console.log(this.activeMarker);
+    console.log(this.state.activeMarker);
     return (
       <div>
         <div className="map-container">
@@ -109,7 +125,7 @@ export class App extends Component {
             onClick={this.onMarkerClick}
             onMarkerCreated={this.onMarkerCreated}
             ref={this.onMarkerCreated}
-            
+            animation={null}
           />
         ))}
 
