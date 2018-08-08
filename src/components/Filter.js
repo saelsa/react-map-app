@@ -1,21 +1,23 @@
 import React, { Component } from "react";
-import { Dropdown, DropdownItem } from 'muicss/react';
-
-
+import { Dropdown, DropdownItem } from "muicss/react";
 
 export class Filter extends Component {
-    render() {
-      return (
- 
-        <Dropdown color="primary" label="Dropdown">
-        <DropdownItem link="#/link1">Option 1</DropdownItem>
-        <DropdownItem>Option 2</DropdownItem>
-        <DropdownItem>Option 3</DropdownItem>
-        <DropdownItem>Option 4</DropdownItem>
-      </Dropdown>
+  render() {
+    let uniqueCountries = [
+      ...new Set(this.props.places.map(place => place.country))
+    ];
 
-      );
-    }
+     return (
+      <Dropdown color="primary" label="Filter by Country">
+        <DropdownItem onClick={() => this.props.showAllPlaces()}>Show all</DropdownItem>
+        {uniqueCountries.map(country => (
+          <DropdownItem onClick={() => this.props.filterPlaces(country)}>
+            {country}
+          </DropdownItem>
+        ))}
+      </Dropdown>
+    );
   }
-  
-  export default Filter;
+}
+
+export default Filter;

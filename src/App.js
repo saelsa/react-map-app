@@ -14,6 +14,8 @@ export class App extends Component {
     selectedPlace: {},
 
     places: [],
+    filteredPlaces: [],
+    uniqueCountries: [],
     marker: []
   };
 
@@ -33,8 +35,21 @@ export class App extends Component {
         });
       return place;
     });
-    this.setState({ places });
+
+    this.setState({ places, filteredPlaces:places});
   };
+
+  filterPlaces = (country) => {
+    let filteredPlaces = this.state.places.filter(place => 
+      place.country === country
+    );
+
+    this.setState({filteredPlaces});
+  } 
+
+  showAllPlaces = () => {
+    this.setState({filteredPlaces:this.state.places});
+  }
 
   onMarkerClick = (props, marker, e) => {
     this.setState({
@@ -54,13 +69,6 @@ export class App extends Component {
       }));
     }
   };
-
-  // onListClicked = (place) => {
-  //   const selectedMarker = this.state.marker.filter(marker =>
-  //     marker.props.name === place.name);
-  //     // console.log(selectedMarker);
-  //     new selectedMarker.props.google.maps.event.trigger(selectedMarker.marker, 'click' );
-  // }
 
   onListClick = place => {
     for (const createdMarker of this.state.marker) {
@@ -126,7 +134,7 @@ export class App extends Component {
             google={this.props.google}
             onClick={this.onMapClicked}
           >
-            {this.state.places.map(place => (
+            {this.state.filteredPlaces.map(place => (
               <Marker
                 key={place.name}
                 id={place.name}
@@ -160,7 +168,10 @@ export class App extends Component {
         <Sidebar
           style={{ height: "100vh", width: "25vw" }}
           places={this.state.places}
+          filteredPlaces={this.state.filteredPlaces}
           onListClick={this.onListClick}
+          filterPlaces={this.filterPlaces}
+          showAllPlaces={this.showAllPlaces}
         />
       </div>
     );

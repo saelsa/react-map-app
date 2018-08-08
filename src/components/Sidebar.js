@@ -7,9 +7,15 @@ export class Sidebar extends Component {
     render () {
       return (
         <div className="Sidebar">
-          <Filter places={this.props.places} />
-          <ListPlaces  places={this.props.places}
-          onClick={this.props.onListClick}/>
+          <Filter 
+            places={this.props.places}
+            filterPlaces={this.props.filterPlaces}
+            showAllPlaces={this.props.showAllPlaces}
+            />
+          <ListPlaces  
+            places={this.props.filteredPlaces}
+            onClick={this.props.onListClick}
+            />
         </div>
 
 
