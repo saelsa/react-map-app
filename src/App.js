@@ -4,8 +4,7 @@ import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
 import * as data from "./places.json";
 import "./App.css";
 import { Filter } from './components/Filter';
-
-const unsplashKey = "4281660249cb5a66f365bf7611e9760a224d689a23bcc0efad2cee76d8149bc4";
+import {unsplashKey} from './constants/Index';
 
 export class App extends Component {
   state = {
@@ -62,6 +61,7 @@ export class App extends Component {
       if (createdMarker.props.name === place.name) {
         new createdMarker.props.google.maps.event.trigger( createdMarker.marker, 'click' );
       }
+
     }
   }
 
