@@ -10,7 +10,7 @@
     width: 75%;
 }
 
-.list-places {
+.Sidebar {
     z-index: 999;
     float: right;
     position: fixed;
