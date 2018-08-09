@@ -26,6 +26,8 @@ Notice that this opens the project in development mode. A service worker is only
 
 [create-react-app](https://www.npmjs.com/package/google-maps-react)
 
+[google-maps-react](https://www.npmjs.com/package/google-maps-react)
+
 [muicss](https://www.muicss.com/)
 
 [react-burger-menu](https://negomi.github.io/react-burger-menu/)
