@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Dropdown, DropdownItem } from "muicss/react";
+import Option from 'muicss/lib/react/option';
+import Select from 'muicss/lib/react/select';
 
 export class Filter extends Component {
   render() {
@@ -7,16 +8,28 @@ export class Filter extends Component {
       ...new Set(this.props.places.map(place => place.country).sort())
     ];
 
-     return (
-      <Dropdown color="primary" label="Filter by Country" style={{width: "100%"}}>
-        <DropdownItem onClick={() => this.props.showAllPlaces()} style={{width: "100%"}}
-            >Show all</DropdownItem>
-        {uniqueCountries.map(country => (
-          <DropdownItem onClick={() => this.props.filterPlaces(country)} style={{width: "100%"}}>
-            {country}
-          </DropdownItem>
+    return (
+      <form>
+        <Select 
+            name="input" 
+            label="Filter by Country" 
+            defaultValue="all"
+            onChange={(e) => this.props.filterPlaces(e.target.value)}
+            >
+          <Option 
+                label="Show all" 
+                value="all"
+               />
+          {uniqueCountries.map(country => (
+          <Option
+            value={country}
+            label={country}   
+            style={{ width: "100%" }}
+          />
+           
         ))}
-      </Dropdown>
+        </Select>
+      </form>
     );
   }
 }

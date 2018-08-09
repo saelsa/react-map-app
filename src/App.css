@@ -3,6 +3,7 @@
     height: 100%;
 }
 
+
 .Header {
     position: fixed;
     top: 0;
@@ -34,3 +35,14 @@
     right: 0;
 }
 
+div.mui-select label {
+    color: #fff;
+}
+
+div.mui-select select {
+    color: rgb(163, 197, 230);
+}
+
+div.mui-select option {
+    color: #000;
+}

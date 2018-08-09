@@ -45,16 +45,17 @@ export class App extends Component {
   };
 
   filterPlaces = (country) => {
-    let filteredPlaces = this.state.places.filter(place => 
-      place.country === country
-    );
+    if (country === "all") {
+      this.setState({filteredPlaces:this.state.places});
+    } else {
+      let filteredPlaces = this.state.places.filter(place => 
+        place.country === country
+      );
+  
+      this.setState({filteredPlaces});
+    }
 
-    this.setState({filteredPlaces});
   } 
-
-  showAllPlaces = () => {
-    this.setState({filteredPlaces:this.state.places});
-  }
 
   onMarkerClick = (props, marker, e) => {
     this.setState({
@@ -165,6 +166,7 @@ export class App extends Component {
           >
             {this.state.filteredPlaces.map(place => (
               <Marker
+                className="Marker"
                 key={place.name}
                 id={place.name}
                 title={place.name}
@@ -173,6 +175,7 @@ export class App extends Component {
                 country={place.country}
                 img={place.img}
                 icon={markerIcon}
+                tabIndex='0'
                 onClick={this.onMarkerClick}
                 onMarkerCreated={this.onMarkerCreated}
                 ref={this.onMarkerCreated}

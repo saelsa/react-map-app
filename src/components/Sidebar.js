@@ -3,6 +3,8 @@ import React, { Component} from 'react';
 import {ListPlaces} from './ListPlaces';
 import { Filter } from './Filter';
 
+import { Button } from "muicss/react";
+
 import { slide as Menu } from 'react-burger-menu';
 
 import menuStyles from '../constants/Styles'
@@ -19,12 +21,15 @@ export class Sidebar extends Component {
             disableOverlayClick
             styles={ menuStyles }
             >
-            <img 
-                src={closeIcon} 
-                alt="closeMenu" 
-                style={{color: "white", float:"right"}}
+            <Button 
                 onClick={() => this.props.closeMenu()}
-            />
+                style={{float:"right", background:"transparent", padding:"0", zIndex:"999"}}
+                >
+                <img 
+                    src={closeIcon} 
+                    alt="closeMenu"
+                />
+            </Button>
           <Filter 
             places={this.props.places}
             filterPlaces={this.props.filterPlaces}
