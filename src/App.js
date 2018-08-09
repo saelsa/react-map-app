@@ -38,6 +38,7 @@ export class App extends Component {
         .then(res => res.json())
         .then(imgs => {
           place.img = imgs.urls.small;
+          this.setState({ unsplashErr: null})
         })
         .catch(err => {
           console.log("Error happened during fetching!", err);
