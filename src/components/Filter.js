@@ -8,10 +8,11 @@ export class Filter extends Component {
     ];
 
      return (
-      <Dropdown color="primary" label="Filter by Country">
-        <DropdownItem onClick={() => this.props.showAllPlaces()}>Show all</DropdownItem>
+      <Dropdown color="primary" label="Filter by Country" style={{width: "100%"}}>
+        <DropdownItem onClick={() => this.props.showAllPlaces()} style={{width: "100%"}}
+            >Show all</DropdownItem>
         {uniqueCountries.map(country => (
-          <DropdownItem onClick={() => this.props.filterPlaces(country)}>
+          <DropdownItem onClick={() => this.props.filterPlaces(country)} style={{width: "100%"}}>
             {country}
           </DropdownItem>
         ))}

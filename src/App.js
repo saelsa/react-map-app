@@ -1,17 +1,22 @@
 import React, { Component } from "react";
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
 
-
-import * as data from "./places.json";
-import "./App.css";
 import { Sidebar } from "./components/Sidebar";
+import { Header } from "./components/Header";
+
 import { unsplashKey } from "./constants/Index";
+import * as data from "./resources/places.json";
+import mapStyles from "./resources/mapStyles.json";
+import markerIcon from "./resources/boots.png";
+import "./App.css";
 
 export class App extends Component {
   state = {
     showingInfoWindow: false,
     activeMarker: {},
     selectedPlace: {},
+
+    isMenuOpen: false,
 
     places: [],
     filteredPlaces: [],
@@ -79,6 +84,7 @@ export class App extends Component {
         );
       }
     }
+    this.closeMenu();
   };
 
  //stop the animation of all markers
@@ -99,6 +105,13 @@ export class App extends Component {
     }
   };
 
+  openMenu = () => {
+    if (!this.state.isMenuOpen) { this.setState({isMenuOpen:true})}
+  }
+
+  closeMenu = () => {
+    if (this.state.isMenuOpen) { this.setState({isMenuOpen:false})}
+  }
 
   onMapClicked = props => {
     if (this.state.showingInfoWindow) {
@@ -121,11 +134,27 @@ export class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <div className="map-container">
-          <Map
+      <div className="App" style={{width: "100%"}}>
+ 
+        <Sidebar
+          style={{ height: "100vh", width: "25vw" }}
+          places={this.state.places}
+          filteredPlaces={this.state.filteredPlaces}
+          onListClick={this.onListClick}
+          filterPlaces={this.filterPlaces}
+          showAllPlaces={this.showAllPlaces}
+          isMenuOpen={this.state.isMenuOpen}
+          closeMenu={this.closeMenu}
+        />
+
+        <Header 
+          openMenu={this.openMenu}/>
+
+          <div id="map-container">
+        
+           <Map
             className="Map"
-            style={{ height: "100%", width: "75%" }}
+            styles={mapStyles}
             initialCenter={{
               lat: 54.5259614,
               lng: 15.2551187
@@ -143,6 +172,7 @@ export class App extends Component {
                 position={place.position}
                 country={place.country}
                 img={place.img}
+                icon={markerIcon}
                 onClick={this.onMarkerClick}
                 onMarkerCreated={this.onMarkerCreated}
                 ref={this.onMarkerCreated}
@@ -163,17 +193,9 @@ export class App extends Component {
               </div>
             </InfoWindow>
           </Map>
-        </div>
 
-        <Sidebar
-          style={{ height: "100vh", width: "25vw" }}
-          places={this.state.places}
-          filteredPlaces={this.state.filteredPlaces}
-          onListClick={this.onListClick}
-          filterPlaces={this.filterPlaces}
-          showAllPlaces={this.showAllPlaces}
-        />
-      </div>
+          </div>
+          </div>
     );
   }
 }

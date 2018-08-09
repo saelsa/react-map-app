@@ -1,13 +1,14 @@
 import React, { Component } from "react";
+import { Button } from "muicss/react";
 
 export class ListPlaces extends Component {
   render() {
     return (
       <div className="list-places">
-        <ul>
+        <ul className="mui-list--unstyled">
           {this.props.places.map(place => (
             <li key={place.name} onClick={() => this.props.onClick(place)}>
-              <button>{place.name}</button>
+              <Button style={{width: "100%", textAlign: "left"}}>{place.name}</Button>
             </li>
           ))}
         </ul>
