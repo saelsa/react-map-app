@@ -17,6 +17,7 @@ export class App extends Component {
     selectedPlace: {},
 
     isMenuOpen: false,
+    unsplashErr: null,
 
     places: [],
     filteredPlaces: [],
@@ -37,6 +38,8 @@ export class App extends Component {
         })
         .catch(err => {
           console.log("Error happened during fetching!", err);
+          this.setState({unsplashErr:err})
+
         });
       return place;
     });
@@ -193,7 +196,17 @@ export class App extends Component {
               <div className="infowindow-content">
                 <h3>{this.state.selectedPlace.name}</h3>
                 <p>{this.state.selectedPlace.country}</p>
-                <img src={this.state.selectedPlace.img} alt="" />
+              
+                <img src={this.state.selectedPlace.img} alt={this.state.selectedPlace.name} />
+               {
+                 (!this.state.unsplashErr) &&
+                <p>Source:<a href={this.state.selectedPlace.img}>Unsplash</a></p>
+               }
+               {
+                (this.state.unsplashErr) &&
+                <p>Sorry, there was an error while loading the image. Please try again later.</p>
+               }
+
               </div>
             </InfoWindow>
           </Map>
