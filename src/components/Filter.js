@@ -22,6 +22,7 @@ export class Filter extends Component {
                />
           {uniqueCountries.map(country => (
           <Option
+            key={country}
             value={country}
             label={country}   
             style={{ width: "100%" }}
