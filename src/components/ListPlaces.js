@@ -8,10 +8,9 @@ export class ListPlaces extends Component {
         <ul className="mui-list--unstyled">
           {this.props.places.map(place => (
             <li key={place.name} onClick={() => this.props.onClick(place)}>
-              <Button 
-                style={{width: "100%", textAlign: "left"}}
-              >
-                {place.name}</Button>
+              <Button style={{ width: "100%", textAlign: "left" }}>
+                {place.name}
+              </Button>
             </li>
           ))}
         </ul>

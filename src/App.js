@@ -12,23 +12,22 @@ import "./App.css";
 
 export class App extends Component {
   state = {
-    showingInfoWindow: false,         //whether and Infowindow is open 
-    activeMarker: {},                 //stores the active marker 
-    selectedPlace: {},                //stores the selected place 
+    showingInfoWindow: false, //whether and Infowindow is open
+    activeMarker: {}, //stores the active marker
+    selectedPlace: {}, //stores the selected place
 
-    isMenuOpen: false,                //keeps track whether the sidebar is open 
-    unsplashErr: null,                //stores the error of the Unsplash API
+    isMenuOpen: false, //keeps track whether the sidebar is open
+    unsplashErr: null, //stores the error of the Unsplash API
 
-    places: [],                       //array of all places 
-    filteredPlaces: [],               //array of places to be shown on the map
-    uniqueCountries: [],              //array of unique countries
-    marker: []                        //array of all created markers
+    places: [], //array of all places
+    filteredPlaces: [], //array of places to be shown on the map
+    uniqueCountries: [], //array of unique countries
+    marker: [] //array of all created markers
   };
 
-
-  //After component mounts, images are fetched from the Unsplash API 
-  //for each from the data file. The list of places is then updated 
-  //with the image data 
+  //After component mounts, images are fetched from the Unsplash API
+  //for each from the data file. The list of places is then updated
+  //with the image data
   componentDidMount = () => {
     let places = data.map(place => {
       fetch(
@@ -42,30 +41,30 @@ export class App extends Component {
         })
         .catch(err => {
           console.log("Error happened during fetching!", err);
-          this.setState({unsplashErr:err})
+          this.setState({ unsplashErr: err });
         });
       return place;
     });
-    this.setState({ places, filteredPlaces:places});
+    this.setState({ places, filteredPlaces: places });
   };
 
-  //if a country is provided as filter criteria, the list of places 
+  //if a country is provided as filter criteria, the list of places
   //is filtered. Otherwise the whole list of places is put in state
-  filterPlaces = (country) => {
+  filterPlaces = country => {
     if (country === "all") {
-      this.setState({filteredPlaces:this.state.places});
+      this.setState({ filteredPlaces: this.state.places });
     } else {
-      let filteredPlaces = this.state.places.filter(place => 
-        place.country === country
+      let filteredPlaces = this.state.places.filter(
+        place => place.country === country
       );
-      this.setState({filteredPlaces});
+      this.setState({ filteredPlaces });
     }
-  } 
+  };
 
   //when a marker is clicked, the marker is activated
-  //and the infowindow shown 
-  //any already animated markers are toggled and the 
-  //active marker animated 
+  //and the infowindow shown
+  //any already animated markers are toggled and the
+  //active marker animated
   onMarkerClick = (props, marker, e) => {
     this.setState({
       selectedPlace: props,
@@ -77,8 +76,8 @@ export class App extends Component {
     this.toggleBounce(marker);
   };
 
-  //for each created Marker component the marker 
-  //is pushed into the marker array 
+  //for each created Marker component the marker
+  //is pushed into the marker array
   onMarkerCreated = marker => {
     if (marker !== null) {
       this.setState(prevState => ({
@@ -87,7 +86,7 @@ export class App extends Component {
     }
   };
 
-  //when clicking on a place in the menu, a click event 
+  //when clicking on a place in the menu, a click event
   //is triggered for the matching marker
   //the menu is closed
   onListClick = place => {
@@ -102,14 +101,14 @@ export class App extends Component {
     this.closeMenu();
   };
 
- //stop the animation of all markers
- toggleBounceAll = () => {
-  for (const marker of this.state.marker) {
-    if (marker.marker.getAnimation() !== null) {
-      marker.marker.setAnimation(null);
+  //stop the animation of all markers
+  toggleBounceAll = () => {
+    for (const marker of this.state.marker) {
+      if (marker.marker.getAnimation() !== null) {
+        marker.marker.setAnimation(null);
+      }
     }
-  }
-}
+  };
 
   //animate the selected marker
   toggleBounce = marker => {
@@ -119,18 +118,22 @@ export class App extends Component {
       marker.setAnimation(this.props.google.maps.Animation.BOUNCE);
     }
   };
-  
+
   //opens the sidebar menu
   openMenu = () => {
-    if (!this.state.isMenuOpen) { this.setState({isMenuOpen:true})}
-  }
+    if (!this.state.isMenuOpen) {
+      this.setState({ isMenuOpen: true });
+    }
+  };
 
   //closes the sidebar menu
   closeMenu = () => {
-    if (this.state.isMenuOpen) { this.setState({isMenuOpen:false})}
-  }
+    if (this.state.isMenuOpen) {
+      this.setState({ isMenuOpen: false });
+    }
+  };
 
-  //when clicking on the map the state variables regarding 
+  //when clicking on the map the state variables regarding
   //active marker/infowindow are reset and markers animation toggled
   onMapClicked = props => {
     if (this.state.showingInfoWindow) {
@@ -142,7 +145,7 @@ export class App extends Component {
     this.toggleBounceAll();
   };
 
-   //when closing the infowindow the state variables regarding 
+  //when closing the infowindow the state variables regarding
   //active marker/infowindow are reset and markers animation toggled
   windowHasClosed = () => {
     this.setState({
@@ -150,13 +153,11 @@ export class App extends Component {
       activeMarker: null
     });
     this.toggleBounceAll();
-
-  }
+  };
 
   render() {
     return (
-      <div className="App" style={{width: "100%"}}>
- 
+      <div className="App" style={{ width: "100%" }}>
         <Sidebar
           style={{ height: "100vh", width: "25vw" }}
           places={this.state.places}
@@ -168,12 +169,10 @@ export class App extends Component {
           closeMenu={this.closeMenu}
         />
 
-        <Header 
-          openMenu={this.openMenu}/>
+        <Header openMenu={this.openMenu} />
 
-          <div id="map-container">
-        
-           <Map
+        <div id="map-container">
+          <Map
             className="Map"
             styles={mapStyles}
             initialCenter={{
@@ -195,7 +194,7 @@ export class App extends Component {
                 country={place.country}
                 img={place.img}
                 icon={markerIcon}
-                tabIndex='0'
+                tabIndex="0"
                 onBlur={this.onMapClicked}
                 onClick={this.onMarkerClick}
                 onMarkerCreated={this.onMarkerCreated}
@@ -213,23 +212,27 @@ export class App extends Component {
               <div className="infowindow-content">
                 <h3>{this.state.selectedPlace.name}</h3>
                 <p>{this.state.selectedPlace.country}</p>
-              
-                <img src={this.state.selectedPlace.img} alt={this.state.selectedPlace.name} />
-               {
-                 (!this.state.unsplashErr) &&
-                <p>Source:<a href={this.state.selectedPlace.img}>Unsplash</a></p>
-               }
-               {
-                (this.state.unsplashErr) &&
-                <p>Sorry, there was an error while loading the image. Please try again later.</p>
-               }
 
+                <img
+                  src={this.state.selectedPlace.img}
+                  alt={this.state.selectedPlace.name}
+                />
+                {!this.state.unsplashErr && (
+                  <p>
+                    Source:<a href={this.state.selectedPlace.img}>Unsplash</a>
+                  </p>
+                )}
+                {this.state.unsplashErr && (
+                  <p>
+                    Sorry, there was an error while loading the image. Please
+                    try again later.
+                  </p>
+                )}
               </div>
             </InfoWindow>
           </Map>
-
-          </div>
-          </div>
+        </div>
+      </div>
     );
   }
 }
