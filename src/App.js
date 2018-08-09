@@ -176,6 +176,7 @@ export class App extends Component {
                 img={place.img}
                 icon={markerIcon}
                 tabIndex='0'
+                onBlur={this.onMapClicked}
                 onClick={this.onMarkerClick}
                 onMarkerCreated={this.onMarkerCreated}
                 ref={this.onMarkerCreated}

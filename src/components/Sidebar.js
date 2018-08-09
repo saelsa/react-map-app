@@ -21,26 +21,30 @@ export class Sidebar extends Component {
             disableOverlayClick
             styles={ menuStyles }
             >
-            <Button 
-                onClick={() => this.props.closeMenu()}
-                style={{float:"right", background:"transparent", padding:"0", zIndex:"999"}}
-                >
-                <img 
-                    src={closeIcon} 
-                    alt="closeMenu"
-                />
-            </Button>
+            
           <Filter 
             places={this.props.places}
             filterPlaces={this.props.filterPlaces}
             showAllPlaces={this.props.showAllPlaces}
-            />
+             />
 
 
           <ListPlaces  
             places={this.props.filteredPlaces}
             onClick={this.props.onListClick}
             />
+
+            <Button 
+                onClick={() => this.props.closeMenu()}
+                style={{position: "fixed", top: "0", left: "265px", background:"transparent", padding:"0", zIndex:"999"}}
+                tabIndex="0"
+                onBlur={() => this.props.closeMenu()}
+                >
+                <img 
+                    src={closeIcon} 
+                    alt="closeMenu"
+                />
+            </Button>
         </Menu>
 
 

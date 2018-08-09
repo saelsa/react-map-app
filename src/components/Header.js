@@ -10,6 +10,7 @@ export class Header extends Component {
         <div className="Header">
             <Button 
                 onClick={() => this.props.openMenu()} 
+                onBlur={() => this.props.openMenu()} 
                 style={{display: "flex", alignItems: "center"}}
                 tabIndex="1"                
                 >
