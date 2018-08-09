@@ -1,7 +1,7 @@
+//Styles for the Sidebar menu
 export const menuStyles = {
 
   bmMenu: {
-    // background: '#373a47',
     background: 'rgba(0, 0, 0, 0.6)',
     fontSize: '1.15em',
     overflow: 'hidden'

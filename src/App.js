@@ -12,19 +12,23 @@ import "./App.css";
 
 export class App extends Component {
   state = {
-    showingInfoWindow: false,
-    activeMarker: {},
-    selectedPlace: {},
+    showingInfoWindow: false,         //whether and Infowindow is open 
+    activeMarker: {},                 //stores the active marker 
+    selectedPlace: {},                //stores the selected place 
 
-    isMenuOpen: false,
-    unsplashErr: null,
+    isMenuOpen: false,                //keeps track whether the sidebar is open 
+    unsplashErr: null,                //stores the error of the Unsplash API
 
-    places: [],
-    filteredPlaces: [],
-    uniqueCountries: [],
-    marker: []
+    places: [],                       //array of all places 
+    filteredPlaces: [],               //array of places to be shown on the map
+    uniqueCountries: [],              //array of unique countries
+    marker: []                        //array of all created markers
   };
 
+
+  //After component mounts, images are fetched from the Unsplash API 
+  //for each from the data file. The list of places is then updated 
+  //with the image data 
   componentDidMount = () => {
     let places = data.map(place => {
       fetch(
@@ -39,14 +43,14 @@ export class App extends Component {
         .catch(err => {
           console.log("Error happened during fetching!", err);
           this.setState({unsplashErr:err})
-
         });
       return place;
     });
-
     this.setState({ places, filteredPlaces:places});
   };
 
+  //if a country is provided as filter criteria, the list of places 
+  //is filtered. Otherwise the whole list of places is put in state
   filterPlaces = (country) => {
     if (country === "all") {
       this.setState({filteredPlaces:this.state.places});
@@ -54,12 +58,14 @@ export class App extends Component {
       let filteredPlaces = this.state.places.filter(place => 
         place.country === country
       );
-  
       this.setState({filteredPlaces});
     }
-
   } 
 
+  //when a marker is clicked, the marker is activated
+  //and the infowindow shown 
+  //any already animated markers are toggled and the 
+  //active marker animated 
   onMarkerClick = (props, marker, e) => {
     this.setState({
       selectedPlace: props,
@@ -71,6 +77,8 @@ export class App extends Component {
     this.toggleBounce(marker);
   };
 
+  //for each created Marker component the marker 
+  //is pushed into the marker array 
   onMarkerCreated = marker => {
     if (marker !== null) {
       this.setState(prevState => ({
@@ -79,6 +87,9 @@ export class App extends Component {
     }
   };
 
+  //when clicking on a place in the menu, a click event 
+  //is triggered for the matching marker
+  //the menu is closed
   onListClick = place => {
     for (const createdMarker of this.state.marker) {
       if (createdMarker.props.name === place.name) {
@@ -108,15 +119,19 @@ export class App extends Component {
       marker.setAnimation(this.props.google.maps.Animation.BOUNCE);
     }
   };
-
+  
+  //opens the sidebar menu
   openMenu = () => {
     if (!this.state.isMenuOpen) { this.setState({isMenuOpen:true})}
   }
 
+  //closes the sidebar menu
   closeMenu = () => {
     if (this.state.isMenuOpen) { this.setState({isMenuOpen:false})}
   }
 
+  //when clicking on the map the state variables regarding 
+  //active marker/infowindow are reset and markers animation toggled
   onMapClicked = props => {
     if (this.state.showingInfoWindow) {
       this.setState({
@@ -127,6 +142,8 @@ export class App extends Component {
     this.toggleBounceAll();
   };
 
+   //when closing the infowindow the state variables regarding 
+  //active marker/infowindow are reset and markers animation toggled
   windowHasClosed = () => {
     this.setState({
       showingInfoWindow: false,

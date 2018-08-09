@@ -4,6 +4,8 @@ import Select from 'muicss/lib/react/select';
 
 export class Filter extends Component {
   render() {
+
+    //get all the unique countries from the places array
     let uniqueCountries = [
       ...new Set(this.props.places.map(place => place.country).sort())
     ];
