@@ -20,7 +20,14 @@ The app is responsive and accessible on all viewports.
 
 `localhost:3000`
 
-Notice that this opens the project in development mode. A service worker is only available in production build 
+Notice that this opens the project in development mode. A service worker is only available in production build. 
+To create a production build the easiest is to use the node serve functionality. 
+
+`npm install -g serve`
+
+`serve -s build`
+
+For more information please refer to the [create-react-app](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#deployment) deployment documentation.
 
 ## Dependencies
 
