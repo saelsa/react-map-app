@@ -16,6 +16,7 @@ export class Filter extends Component {
           label="Filter by Country"
           defaultValue="all"
           onChange={e => this.props.filterPlaces(e.target.value)}
+          tabIndex="0"
         >
           <Option label="Show all" value="all" />
           {uniqueCountries.map(country => (

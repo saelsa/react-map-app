@@ -165,6 +165,7 @@ export class App extends Component {
   render() {
     return (
       <div className="App" style={{ width: "100%" }}>
+        <Header openMenu={this.openMenu} />
         <Sidebar
           style={{ height: "100vh", width: "25vw" }}
           places={this.state.places}
@@ -174,10 +175,8 @@ export class App extends Component {
           showAllPlaces={this.showAllPlaces}
           isMenuOpen={this.state.isMenuOpen}
           closeMenu={this.closeMenu}
+          openMenu={this.openMenu}
         />
-
-        <Header openMenu={this.openMenu} />
-
         <div id="map-container">
           <Map
             className="Map"
@@ -189,6 +188,8 @@ export class App extends Component {
             zoom={4}
             google={this.props.google}
             onClick={this.onMapClicked}
+            role="application" 
+            aria-label="map"
           >
             {this.state.filteredPlaces.map(place => (
               <Marker
@@ -202,6 +203,7 @@ export class App extends Component {
                 img={place.img}
                 icon={markerIcon}
                 tabIndex="0"
+                aria-label={`Marker for ${place.name}`}
                 onBlur={this.onMapClicked}
                 onClick={this.onMarkerClick}
                 onMarkerCreated={this.onMarkerCreated}
@@ -215,6 +217,8 @@ export class App extends Component {
               visible={this.state.showingInfoWindow}
               onClose={this.windowHasClosed}
               maxWidth="200"
+              tabIndex="0"
+              aria-label="Infowindow"
             >
               <div className="infowindow-content">
                 <h3>{this.state.selectedPlace.name}</h3>
@@ -226,7 +230,7 @@ export class App extends Component {
                 />
                 {!this.state.unsplashErr && (
                   <p>
-                    Source:<a href={this.state.selectedPlace.img}>Unsplash</a>
+                    Source:<a href={this.state.selectedPlace.img} target="_blank" rel="nofollow noopener">Unsplash</a>
                   </p>
                 )}
                 {this.state.unsplashErr && (

@@ -7,8 +7,11 @@ export class ListPlaces extends Component {
       <div className="list-places">
         <ul className="mui-list--unstyled">
           {this.props.places.map(place => (
-            <li key={place.name} onClick={() => this.props.onClick(place)}>
-              <Button style={{ width: "100%", textAlign: "left" }}>
+            <li key={place.name} onClick={() => this.props.onClick(place)}
+              >
+              <Button style={{ width: "100%", textAlign: "left" }}
+              onFocus={() => this.props.openMenu()}
+              >
                 {place.name}
               </Button>
             </li>

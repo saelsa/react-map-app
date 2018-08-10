@@ -11,9 +11,8 @@ export class Header extends Component {
           onClick={() => this.props.openMenu()}
           onBlur={() => this.props.openMenu()}
           style={{ display: "flex", alignItems: "center" }}
-          tabIndex="1"
         >
-          <img src={listIcon} alt="openMenu" />
+          <img src={listIcon} alt="" />
         </Button>
         <div className="text-container">
           <h1>Find your next hiking destination in Europe</h1>

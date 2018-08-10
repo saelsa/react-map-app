@@ -2,7 +2,8 @@
 export const menuStyles = {
 
   bmMenu: {
-    background: 'rgba(0, 0, 0, 0.6)',
+    // background: 'rgba(0, 0, 0, 0.6)',
+    background: '#fff',
     fontSize: '1.15em',
     overflow: 'hidden'
   },

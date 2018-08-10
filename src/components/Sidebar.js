@@ -29,6 +29,7 @@ export class Sidebar extends Component {
         <ListPlaces
           places={this.props.filteredPlaces}
           onClick={this.props.onListClick}
+          openMenu={this.props.openMenu}
         />
 
         <Button
@@ -41,10 +42,9 @@ export class Sidebar extends Component {
             padding: "0",
             zIndex: "999"
           }}
-          tabIndex="0"
           onBlur={() => this.props.closeMenu()}
         >
-          <img src={closeIcon} alt="closeMenu" />
+          <img src={closeIcon} alt="" />
         </Button>
       </Menu>
     );
