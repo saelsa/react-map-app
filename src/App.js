@@ -10,6 +10,12 @@ import mapStyles from "./resources/mapStyles.json";
 import markerIcon from "./resources/boots.png";
 import "./App.css";
 
+window.gm_authFailure = () => { 
+  const mapContainer = document.querySelector('#map-container');
+  mapContainer.innerHTML = '';
+  mapContainer.innerHTML = `<div style="padding:20px; border:1px solid red"><h2>Error message</h2><p>Sorry, but there was an unexpected error while loading Google Maps. Please refer to the console for more information or try to refresh the page.  </p></div>`;
+;}
+
 export class App extends Component {
   state = {
     showingInfoWindow: false, //whether and Infowindow is open
