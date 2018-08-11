@@ -219,10 +219,12 @@ export class App extends Component {
               visible={this.state.showingInfoWindow}
               onClose={this.windowHasClosed}
               maxWidth="200"
-              tabIndex="0"
               aria-label="Infowindow"
             >
-              <div className="infowindow-content">
+              <div 
+                className="infowindow-content"
+                tabIndex="0"
+                >
                 <h3>{this.state.selectedPlace.name}</h3>
                 <p>{this.state.selectedPlace.country}</p>
 

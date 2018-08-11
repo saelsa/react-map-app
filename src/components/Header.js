@@ -11,6 +11,7 @@ export class Header extends Component {
           onClick={() => this.props.openMenu()}
           onBlur={() => this.props.openMenu()}
           style={{ display: "flex", alignItems: "center" }}
+          aria-label="Open Menu"
         >
           <img src={listIcon} alt="" />
         </Button>

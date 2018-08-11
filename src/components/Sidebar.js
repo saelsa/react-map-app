@@ -43,6 +43,7 @@ export class Sidebar extends Component {
             zIndex: "999"
           }}
           onBlur={() => this.props.closeMenu()}
+          aria-label="Close Menu"
         >
           <img src={closeIcon} alt="" />
         </Button>
