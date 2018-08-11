@@ -3,6 +3,7 @@ import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
 
 import { Sidebar } from "./components/Sidebar";
 import { Header } from "./components/Header";
+import {ErrorBoundary} from "./components/ErrorBoundary";
 
 import { unsplashKey } from "./constants/Index";
 import * as data from "./resources/places.json";
@@ -178,6 +179,7 @@ export class App extends Component {
           openMenu={this.openMenu}
         />
         <div id="map-container">
+          <ErrorBoundary>
           <Map
             className="Map"
             styles={mapStyles}
@@ -242,6 +244,7 @@ export class App extends Component {
               </div>
             </InfoWindow>
           </Map>
+          </ErrorBoundary>
         </div>
       </div>
     );
